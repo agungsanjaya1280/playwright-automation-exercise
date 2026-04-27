@@ -7,9 +7,25 @@ export class LoginPage {
     await this.page.goto('/login');
   }
 
+  
+  async fillEmail(email: string) {
+    await this.page.locator('[data-qa="login-email"]').fill(email);
+  }
+
+ 
+  async fillPassword(password: string) {
+    await this.page.locator('[data-qa="login-password"]').fill(password);
+  }
+
+
+  async clickLogin() {
+    await this.page.locator('[data-qa="login-button"]').click();
+  }
+
+
   async login(email: string, password: string) {
-    await this.page.locator('#email').fill(email);
-    await this.page.locator('#password').fill(password);
-    await this.page.locator('button[type="submit"]').click();
+    await this.fillEmail(email);
+    await this.fillPassword(password);
+    await this.clickLogin();
   }
 }
