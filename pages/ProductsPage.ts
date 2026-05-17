@@ -5,6 +5,7 @@ export class ProductsPage {
   private searchInput: Locator;
   private searchButton: Locator;
   private searchedProductsTitle: Locator;
+  private productItems: Locator;
 
   constructor(private page: Page) {
     this.productsLink =
@@ -22,6 +23,11 @@ export class ProductsPage {
 
     this.searchedProductsTitle =
       page.getByText('Searched Products');
+    
+    this.productItems =
+      page.locator(
+        '.product-image-wrapper'
+    );  
   }
 
   async open() {
@@ -45,4 +51,19 @@ async verifyProductVisible(productName: string) {
           .first()
     ).toBeVisible();
 }
+async openFirstProduct() {
+    await this.page
+      .getByRole('link', {
+          name: /View Product/
+      })
+      .first()
+      .click();
 }
+
+async verifyNoResults() {
+    await expect(
+        this.productItems
+    ).toHaveCount(0);
+}
+
+};

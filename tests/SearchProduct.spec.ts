@@ -26,6 +26,28 @@ test.describe('Search Product Functionality', () => {
     await productsPage.open();
     await productsPage.searchProduct('Men');
     await productsPage.verifySearchResultsVisible();
-    await productsPage.verifyProductVisible('Men');
-  });
+    await productsPage.verifyProductVisible('Men Tshirt');
+  })  
+  test('should show no result for invalid product',
+    async () => {
+
+    await productsPage.open();
+
+    await productsPage.searchProduct(
+        'abcdefxyz'
+    );
+
+    await productsPage.verifyNoResults();
+});
+  test('should support partial search',
+    async ()=>{await productsPage.open();
+
+    await productsPage.searchProduct(
+       'Shirt'
+    );
+
+    await productsPage.verifyProductVisible(
+       'Men Tshirt'
+    );
+});
 });
